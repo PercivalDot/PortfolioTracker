@@ -1,0 +1,11 @@
+node_modules/
+.claude
+*.log
+.env
+CLAUDE.md
+dist/
+.DS_Store
+build/
+coverage/
+*.tmp
+.cache/
