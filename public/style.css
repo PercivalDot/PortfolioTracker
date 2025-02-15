@@ -1,0 +1,177 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #4a5568;
+    margin-bottom: 15px;
+}
+
+.total-value {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.label {
+    color: #718096;
+    margin-right: 10px;
+}
+
+#totalValue {
+    color: #38a169;
+}
+
+.add-holding {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-holding h2 {
+    margin-bottom: 20px;
+    color: #4a5568;
+}
+
+#addHoldingForm {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+input {
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    flex: 1;
+    min-width: 120px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #5a67d8;
+}
+
+.portfolio {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio h2 {
+    margin-bottom: 20px;
+    color: #4a5568;
+}
+
+.holdings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.holding-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #f7fafc;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.holding-info {
+    flex: 1;
+}
+
+.holding-symbol {
+    font-weight: bold;
+    font-size: 18px;
+    color: #2d3748;
+}
+
+.holding-amount {
+    color: #718096;
+    font-size: 14px;
+}
+
+.holding-value {
+    text-align: right;
+}
+
+.current-value {
+    font-weight: bold;
+    font-size: 16px;
+    color: #2d3748;
+}
+
+.profit-loss {
+    font-size: 14px;
+}
+
+.profit-loss.positive {
+    color: #38a169;
+}
+
+.profit-loss.negative {
+    color: #e53e3e;
+}
+
+.empty-state {
+    text-align: center;
+    color: #a0aec0;
+    font-style: italic;
+    padding: 40px;
+}
+
+.remove-btn {
+    background: #e53e3e;
+    padding: 8px 12px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.remove-btn:hover {
+    background: #c53030;
+}

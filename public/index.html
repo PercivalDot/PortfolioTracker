@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>My Crypto Portfolio</h1>
+            <div class="total-value">
+                <span class="label">Total Value:</span>
+                <span id="totalValue">$0.00</span>
+            </div>
+        </header>
+
+        <div class="add-holding">
+            <h2>Add New Holding</h2>
+            <form id="addHoldingForm">
+                <input type="text" id="symbol" placeholder="Symbol (e.g., BTC)" required>
+                <input type="number" id="amount" placeholder="Amount" step="0.00000001" required>
+                <input type="number" id="purchasePrice" placeholder="Purchase Price" step="0.01" required>
+                <button type="submit">Add Holding</button>
+            </form>
+        </div>
+
+        <div class="portfolio">
+            <h2>My Holdings</h2>
+            <div id="holdingsList" class="holdings-list">
+                <p class="empty-state">No holdings yet. Add your first cryptocurrency above!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
