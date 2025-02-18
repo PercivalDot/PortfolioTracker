@@ -4,6 +4,7 @@ const path = require('path');
 require('dotenv').config();
 
 const Portfolio = require('./models/Portfolio');
+const PriceService = require('./services/priceService');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 const portfolio = new Portfolio();
+const priceService = new PriceService();
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -41,6 +43,49 @@ app.delete('/api/portfolio/:symbol', (req, res) => {
     const { symbol } = req.params;
     portfolio.removeHolding(symbol);
     res.json({ message: 'Holding removed successfully' });
+});
+
+app.get('/api/price/:symbol', async (req, res) => {
+    const { symbol } = req.params;
+    try {
+        const price = await priceService.getCurrentPrice(symbol);
+        if (price !== null) {
+            res.json({ symbol: symbol.toLowerCase(), price });
+        } else {
+            res.status(404).json({ error: 'Price not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch price' });
+    }
+});
+
+app.post('/api/portfolio/update-prices', async (req, res) => {
+    try {
+        const holdings = portfolio.getHoldings();
+        if (holdings.length === 0) {
+            return res.json({ message: 'No holdings to update' });
+        }
+
+        const symbols = holdings.map(h => h.symbol);
+        const prices = await priceService.getMultiplePrices(symbols);
+
+        holdings.forEach(holding => {
+            const currentPrice = prices[holding.symbol];
+            if (currentPrice !== undefined) {
+                portfolio.updatePrice(holding.symbol, currentPrice);
+            }
+        });
+
+        portfolio.calculateTotalValue();
+
+        res.json({
+            message: 'Prices updated successfully',
+            updatedCount: Object.keys(prices).length
+        });
+    } catch (error) {
+        console.error('Error updating prices:', error);
+        res.status(500).json({ error: 'Failed to update prices' });
+    }
 });
 
 app.listen(PORT, () => {
