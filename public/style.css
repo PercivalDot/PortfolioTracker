@@ -175,3 +175,37 @@ button:hover {
 .remove-btn:hover {
     background: #c53030;
 }
+
+.update-info {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.update-btn {
+    background: #38a169;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.update-btn:hover {
+    background: #2f855a;
+}
+
+.last-update {
+    font-size: 12px;
+    color: #718096;
+}
+
+.current-price {
+    font-size: 12px;
+    color: #a0aec0;
+    margin-top: 2px;
+}

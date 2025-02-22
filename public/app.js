@@ -4,17 +4,22 @@ class PortfolioApp {
             holdings: [],
             totalValue: 0
         };
+        this.priceUpdateInterval = null;
         this.init();
     }
 
     init() {
         this.bindEvents();
         this.loadPortfolio();
+        this.startPriceUpdates();
     }
 
     bindEvents() {
         const form = document.getElementById('addHoldingForm');
         form.addEventListener('submit', (e) => this.addHolding(e));
+
+        const updateBtn = document.getElementById('updatePrices');
+        updateBtn.addEventListener('click', () => this.updatePrices());
     }
 
     async addHolding(e) {
@@ -67,6 +72,7 @@ class PortfolioApp {
     updateUI() {
         this.updateTotalValue();
         this.updateHoldingsList();
+        this.updateLastUpdate();
     }
 
     updateTotalValue() {
@@ -98,6 +104,7 @@ class PortfolioApp {
                         <div class="profit-loss ${profitLossClass}">
                             ${profitLossSign}$${Math.abs(profitLoss).toFixed(2)}
                         </div>
+                        <div class="current-price">@ $${holding.currentPrice.toFixed(2)}</div>
                     </div>
                     <button class="remove-btn" onclick="app.removeHolding('${holding.symbol}')">Remove</button>
                 </div>
@@ -123,6 +130,49 @@ class PortfolioApp {
         } catch (error) {
             console.error('Error:', error);
             alert('Error removing holding');
+        }
+    }
+
+    updateLastUpdate() {
+        const lastUpdateElement = document.getElementById('lastUpdate');
+        if (this.portfolioData.lastUpdated) {
+            const date = new Date(this.portfolioData.lastUpdated);
+            lastUpdateElement.textContent = `Last updated: ${date.toLocaleTimeString()}`;
+        } else {
+            lastUpdateElement.textContent = '';
+        }
+    }
+}
+
+    startPriceUpdates() {
+        this.updatePrices();
+        this.priceUpdateInterval = setInterval(() => {
+            this.updatePrices();
+        }, 30000); // Update every 30 seconds
+    }
+
+    async updatePrices() {
+        if (this.portfolioData.holdings.length === 0) {
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/portfolio/update-prices', {
+                method: 'POST',
+            });
+
+            if (response.ok) {
+                this.loadPortfolio();
+            }
+        } catch (error) {
+            console.error('Error updating prices:', error);
+        }
+    }
+
+    stopPriceUpdates() {
+        if (this.priceUpdateInterval) {
+            clearInterval(this.priceUpdateInterval);
+            this.priceUpdateInterval = null;
         }
     }
 }
