@@ -209,3 +209,29 @@ button:hover {
     color: #a0aec0;
     margin-top: 2px;
 }
+
+.chart-section {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chart-section h2 {
+    margin-bottom: 20px;
+    color: #4a5568;
+}
+
+.chart-container {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#portfolioChart {
+    max-width: 100%;
+    height: auto;
+}

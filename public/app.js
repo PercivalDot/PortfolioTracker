@@ -5,11 +5,13 @@ class PortfolioApp {
             totalValue: 0
         };
         this.priceUpdateInterval = null;
+        this.chart = null;
         this.init();
     }
 
     init() {
         this.bindEvents();
+        this.chart = new PortfolioChart('portfolioChart');
         this.loadPortfolio();
         this.startPriceUpdates();
     }
@@ -73,6 +75,7 @@ class PortfolioApp {
         this.updateTotalValue();
         this.updateHoldingsList();
         this.updateLastUpdate();
+        this.updateChart();
     }
 
     updateTotalValue() {
@@ -140,6 +143,12 @@ class PortfolioApp {
             lastUpdateElement.textContent = `Last updated: ${date.toLocaleTimeString()}`;
         } else {
             lastUpdateElement.textContent = '';
+        }
+    }
+
+    updateChart() {
+        if (this.chart) {
+            this.chart.drawPieChart(this.portfolioData.holdings);
         }
     }
 }
