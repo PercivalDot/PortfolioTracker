@@ -56,8 +56,8 @@ class PortfolioApp {
                 alert('Error adding holding');
             }
         } catch (error) {
-            console.error('Error:', error);
-            alert('Error adding holding');
+            console.error('Error adding holding:', error);
+            this.showError('Failed to add holding. Please try again.');
         }
     }
 
@@ -175,6 +175,7 @@ class PortfolioApp {
             }
         } catch (error) {
             console.error('Error updating prices:', error);
+            this.showError('Failed to update prices. Please check your connection.');
         }
     }
 
@@ -183,6 +184,18 @@ class PortfolioApp {
             clearInterval(this.priceUpdateInterval);
             this.priceUpdateInterval = null;
         }
+    }
+
+    showError(message) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.textContent = message;
+
+        document.body.appendChild(errorDiv);
+
+        setTimeout(() => {
+            document.body.removeChild(errorDiv);
+        }, 3000);
     }
 }
 
